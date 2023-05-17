@@ -1,22 +1,30 @@
-import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import {Actor, Engine, Vector, Label, Color, Font, Debug, Transform, Screen, Scene, Camera} from "excalibur";
+import {Resources, ResourceLoader} from "./resources.js";
+import {Track} from "./track.js";
+import {Car} from "./car.js";
+
 
 export class Game extends Engine {
-
     constructor() {
-        super({ width: 800, height: 600 })
-        this.start(ResourceLoader).then(() => this.startGame())
+        super();
+        this.start(ResourceLoader).then(() => this.startGame());
+        this.showDebug(true);
+        this.debug.motion = {
+            accelerationColor: Color.Azure,
+            showAcceleration: true,
+            showAll: true,
+            showVelocity: true,
+            velocityColor: Color.Green,
+        };
     }
 
     startGame() {
-        console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(400, 300)
-        fish.vel = new Vector(-10,0)
-        this.add(fish)
+        let track = new Track();
+        this.add(track);
+
+        let car = new Car();
+        this.add(car);
     }
 }
 
-new Game()
+new Game();
