@@ -22,7 +22,7 @@ export class Level extends Scene {
         let wall = new Wall();
         this.add(wall);
 
-        for (let i = 0; i < 250; i++){
+        for (let i = 0; i < 25; i++){
             let pion = new Pion();
             this.add(pion);
         }
