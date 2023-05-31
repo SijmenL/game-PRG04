@@ -21,8 +21,9 @@ export class Game extends Engine {
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FillScreen});
         this.start(ResourceLoader).then(() => this.startGame());
-        // this.showDebug(true);
+        this.showDebug(false);
         this.add('level', new Level());
+
 
         this.debug.motion = {
             accelerationColor: Color.Azure,
@@ -30,6 +31,12 @@ export class Game extends Engine {
             showAll: true,
             showVelocity: true,
             velocityColor: Color.Green,
+        };
+        this.debug.transform = {
+            positionColor: Color.Red,
+            rotationColor: Color.Yellow,
+            scaleColor: Color.Cyan,
+            showAll: true,
         };
     }
 

@@ -10,8 +10,8 @@ export class Pion extends Actor {
         this.pos = new Vector(Math.random() * (100 - -100) + -100, Math.random() * (100 - -100) + -100)
         this.collider.set(Shape.Box(175, 175));
         this.body.collisionType = CollisionType.Active;
-        this.body.friction = 0.5;
-        this.body.mass = 50;
+        this.body.friction = 0.99;
+        this.body.mass = 1000;
         this.body.useGravity = false
 
 
