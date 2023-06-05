@@ -6,9 +6,10 @@ export class Car extends Actor {
 
     carRotation = 0;
     carSpeed = 0;
-    carAcceleration = 1;
-    maxSpeed = 750;
-    maxAcceleration = 100;
+    carAcceleration = 0.1;
+    maxSpeed = 300;
+    maxAcceleration = 50;
+    accelerationTime = 10;
     cameraZoom = 2000;
     maxCameraZoom = 0.5;
     defaultCameraZoom = 1.2;
@@ -38,26 +39,26 @@ export class Car extends Actor {
 
         if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.Up)) {
             if (this.carAcceleration > -this.maxAcceleration) {
-                this.carAcceleration -= 5
+                this.carAcceleration -= this.accelerationTime / 2
             }
 
             if (this.carSpeed > -this.temporaryMaxSpeed && this.carSpeed <= 0) {
                 this.carSpeed -= -0.1 * this.carAcceleration;
             }
             if (this.carSpeed > 0) {
-                this.carSpeed -= 10;
+                this.carSpeed -= this.accelerationTime;
             }
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.Down)) {
             if (this.carAcceleration < this.maxAcceleration) {
-                this.carAcceleration += 5
+                this.carAcceleration += this.accelerationTime / 2
             }
 
             if (this.carSpeed < (this.temporaryMaxSpeed / 2) && this.carSpeed >= 0) {
                 this.carSpeed += 0.1 * this.carAcceleration;
             }
             if (this.carSpeed < 0) {
-                this.carSpeed += 5;
+                this.carSpeed += this.accelerationTime / 2;
             }
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.Left)) {
@@ -66,7 +67,6 @@ export class Car extends Actor {
                     this.carRotation += (this.maxRotation * (this.carSpeed * 2))
                 } else {
                     this.carRotation += (-this.maxRotation * (this.carSpeed * 2))
-
                 }
             }
             this.isRotating = true
@@ -89,7 +89,7 @@ export class Car extends Actor {
 
 
         // if (this.isRotating === false) {
-        if (this.carRotation > -0.005 && this.carRotation < 0.005) {
+        if (this.carRotation > -0.0005 && this.carRotation < 0.0005) {
             this.carRotation = 0
         }
         if (this.carRotation > 0) {
@@ -129,6 +129,7 @@ export class Car extends Actor {
 
         this.vel = direction;
 
+
         if (this.body.angularVelocity > 0) {
             this.body.angularVelocity -= 0.1
         }
@@ -150,11 +151,13 @@ export class Car extends Actor {
             this.maxRotation = 0.00002
         })
 
+    }
 
+    onPostUpdate(engine, _delta) {
         // Get the canvas element from the game's drawing surface
         let canvas = engine.canvas;
 
-    // Verify that the canvas element is available
+        // Verify that the canvas element is available
         if (canvas) {
             // Get the WebGL rendering context
             let gl = canvas.getContext("webgl2");
@@ -194,11 +197,9 @@ export class Car extends Actor {
                     // Convert RGB values to a hex string
                     let hex = "#" + ("000000" + ((red << 16) | (green << 8) | blue).toString(16)).slice(-6);
 
-                    console.log("Color underneath actor:", hex);
+                    // console.log("Color underneath actor:", hex);
                 }
             }
         }
-
-
     }
 }
