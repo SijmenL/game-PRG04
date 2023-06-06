@@ -55,7 +55,7 @@ export class Garage extends Scene {
 
     music = Resources.garageMusic;
 
-    onInitialize(engine) {
+    onActivate(_context) {
         console.log('garage');
         const background = new Actor();
         background.graphics.use(Resources.Garage.toSprite());
@@ -76,7 +76,7 @@ export class Garage extends Scene {
         this.fadeOutAnimation = new Actor();
         this.fadeOutAnimation.graphics.use(fadeOut);
         this.fadeOutAnimation.z = 1000;
-        this.fadeOutAnimation.opacity = 0.99
+        this.fadeOutAnimation.opacity = 0.99;
         this.fadeOutAnimation.pos = new Vector(775, 500);
         this.fadeOutAnimation.actions
             .delay(1000)
@@ -112,6 +112,7 @@ export class Garage extends Scene {
         const startRace = new Actor();
         startRace.graphics.use(Resources.StartRace.toSprite());
         startRace.pos = new Vector(1230, 75);
+        startRace.z = 5;
         startRace.scale = new Vector(0.75, 0.75);
         startRace.enableCapturePointer = true;
         startRace.pointer.useGraphicsBounds = true;
@@ -369,6 +370,16 @@ export class Garage extends Scene {
         this.add(this.removeHorsePowerUpgradesLabel);
 
         this.updateLabels();
+
+        const menu = new Actor();
+        menu.graphics.use(Resources.MenuButton.toSprite());
+        menu.pos = new Vector(1000, 75);
+        menu.scale = new Vector(0.75, 0.75);
+        menu.enableCapturePointer = true;
+        menu.pointer.useGraphicsBounds = true;
+        menu.on("pointerup", (event) => this.menu());
+        this.add(menu);
+
     }
 
 
@@ -502,9 +513,7 @@ export class Garage extends Scene {
     }
 
     startRaceScene() {
-        this.fadeOutAnimation.actions
-            .fade(1, 4000);
-        this.chooseTrack()
+        this.chooseTrack();
     }
 
     chooseTrack() {
@@ -556,6 +565,12 @@ export class Garage extends Scene {
 
     onDeactivate() {
         this.music.stop();
+        this.clear()
+    }
+
+    menu() {
+        this.engine.goToScene('menu');
+
     }
 
 

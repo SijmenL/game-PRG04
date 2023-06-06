@@ -193,7 +193,6 @@ export class Car extends Actor {
 
         if (event.other._name === 'finish') {
             if (this.engine.raceMiddle === true) {
-                console.log('finished');
                 this.engine.raceFinished = true
             }
         }

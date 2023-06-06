@@ -30,12 +30,15 @@ export class Menu extends Scene {
 
     music = Resources.menuMusic;
 
-    onInitialize(engine) {
-        // music
+    onActivate(_context) {
+        this.music.stop()
+        this.music.volume = 1
         this.engine.backgroundColor = Color.White;
         this.music.loop = true;
         this.music.play();
+    }
 
+    onInitialize(engine) {
         // logo & buttons
         const logo = new Actor();
         logo.graphics.use(Resources.Logo.toSprite());
@@ -56,7 +59,9 @@ export class Menu extends Scene {
 
 
         const practise = new Actor();
-        practise.graphics.use(Resources.Practise.toSprite());
+        let practiseButton = Resources.Practise.toSprite()
+        practiseButton.tint = new Color(100, 100, 100)
+        practise.graphics.use(practiseButton);
         practise.pos = new Vector(750, 500);
         practise.scale = new Vector(0.75, 0.75);
         practise.z = 1000;
@@ -121,5 +126,6 @@ export class Menu extends Scene {
 
     onDeactivate() {
         this.music.stop();
+        this.music.volume = 0
     }
 }

@@ -41,22 +41,34 @@ export class TrackBeach extends CameraMovement {
         Physics.useRealisticPhysics();
     }
 
+    onActivate(engine) {
+        this.car = new Car();
+        this.car.z = 1000;
+        this.car.pos = new Vector(-400, -710);
+        this.car.rotation = 9.5;
+        this.add(this.car);
 
-    onInitialize(engine) {
+        this.camera.strategy.elasticToActor(this.car, 0.5, 0.75);
+        this.zoom = this.car.defaultCameraZoom;
 
+
+        this.music.stop()
         this.music.loop = true;
         this.music.play();
+        this.music.volume = 1
 
         let backgroundColor = new Color(0, 112, 5);
 
         this.engine.backgroundColor = backgroundColor;
 
+        this.time = 0;
+        this.clock = 0;
         this.timer = new Timer({
             fcn: () => this.addMS(engine),
             interval: 1,
             repeats: true
         });
-        engine.currentScene.add(this.timer);
+        this.add(this.timer);
         this.timer.start();
 
         this.timerLabel = new Label({
@@ -114,16 +126,8 @@ export class TrackBeach extends CameraMovement {
         let wall3 = new Wall(775, -675, 520, -375);
         this.add(wall3);
 
-        this.car = new Car();
-        this.car.z = 1000;
-        this.car.pos = new Vector(-400, -710);
-        this.car.rotation = 9.5;
-        this.add(this.car);
-
-
-        this.camera.strategy.elasticToActor(this.car, 0.5, 0.75);
-        this.zoom = this.car.defaultCameraZoom;
-
+        console.log(this.camera)
+        console.log('1')
     }
 
     addMS() {
@@ -145,7 +149,19 @@ export class TrackBeach extends CameraMovement {
 
     onPreUpdate(engine, delta) {
         if (this.engine.raceFinished && this.engine.raceMiddle) {
-            this.timer.stop();
-        }
+            this.engine.goToScene('endScreen', { time: this.clock })        }
+    }
+
+    onDeactivate(_context) {
+
+        this.music.volume = 0
+        this.music.stop()
+
+        this.camera.clearAllStrategies()
+
+
+        this.engine.raceFinished = false
+        this.engine.raceMiddle = false
+        this.clear()
     }
 }

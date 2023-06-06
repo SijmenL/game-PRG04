@@ -6,7 +6,9 @@ import tire from "../images/tire.png";
 import logo from "../images/logo.png";
 import buttonRace from "../images/button-race.png";
 import startRace from "../images/start_race.png";
+import buttonMenu from "../images/button-menu.png";
 
+import endScreen from "../images/end_screen.png";
 import garage from "../images/garage.png";
 import coin from "../images/coin.png";
 
@@ -21,14 +23,20 @@ import subtrackt from "../images/subtrackt.png";
 import finishLine from "../images/finsish line.png"
 
 import buttonPractise from "../images/button-practise.png";
+import buttonGarage from "../images/button-garage.png";
+
 
 import menuMusic from "../sounds/menu.mp3";
 import garageMusic from "../sounds/garage.mp3";
 import beachMusic from "../sounds/beach.mp3";
+import endMusic from "../sounds/end.mp3";
 
 const Resources = {
     Track: new ImageSource(track),
     Garage: new ImageSource(garage),
+    GarageButton: new ImageSource(buttonGarage),
+    EndScreen: new ImageSource(endScreen),
+    MenuButton: new ImageSource(buttonMenu),
 
     Car: new ImageSource(car),
     Pion: new ImageSource(pion),
@@ -53,6 +61,7 @@ const Resources = {
     menuMusic: new Sound(menuMusic),
     garageMusic: new Sound(garageMusic),
     beachMusic: new Sound(beachMusic),
+    endMusic: new Sound(endMusic),
 
 
 };
@@ -69,6 +78,9 @@ const ResourceLoader = new Loader([
     Resources.Garage,
     Resources.Coin,
     Resources.FinishLine,
+    Resources.EndScreen,
+    Resources.GarageButton,
+    Resources.MenuButton,
 
     Resources.EngineUpgrade,
     Resources.TurboUpgrade,
@@ -81,6 +93,7 @@ const ResourceLoader = new Loader([
     Resources.menuMusic,
     Resources.garageMusic,
     Resources.beachMusic,
+    Resources.endMusic,
 ]);
 
 ResourceLoader.logo = logo

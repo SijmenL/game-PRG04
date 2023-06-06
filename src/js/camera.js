@@ -2,12 +2,13 @@ import {Scene, Camera} from "excalibur";
 
 
 export class CameraMovement extends Scene {
-    car;
 
     constructor() {
         super();
+
         this.camera = new Camera();
     }
+
 
     onPreUpdate(engine, delta) {
 
@@ -38,9 +39,7 @@ export class CameraMovement extends Scene {
             this.zoom = this.car.maxCameraZoom
         }
 
-
-
         this.camera.zoom = Math.round(this.zoom * 1000) / 1000;
     }
-
 }
+
