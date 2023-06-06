@@ -1,8 +1,9 @@
 import {Actor, Input, Vector, Transform, Debug, Color, Shape, CollisionType, Physics} from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
+import {Object} from "./object.js";
 
 
-export class Tire extends Actor {
+export class Tire extends Object {
     constructor() {
         super()
 
@@ -17,43 +18,6 @@ export class Tire extends Actor {
         this.body.friction = 1;
         this.body.mass = 10000;
         this.body.useGravity = false
-
-
-    }
-
-    onPreUpdate(_engine, _delta) {
-
-        if (this.vel.x > 0) {
-            this.vel.x -= 10
-        }
-        if (this.vel.x < 0) {
-            this.vel.x += 10
-        }
-        if (this.vel.y > 0) {
-            this.vel.y -= 10
-        }
-        if (this.vel.y < 0) {
-            this.vel.y += 10
-        }
-
-        if (this.body.angularVelocity > 0) {
-            this.body.angularVelocity -= 0.005
-        }
-        if (this.body.angularVelocity < 0) {
-            this.body.angularVelocity += 0.005
-        }
-
-
-        if (this.vel.x < 10 && this.vel.x > -10) {
-            this.vel.x = 0
-        }
-        if (this.vel.y < 10 && this.vel.y > -10) {
-            this.vel.y = 0
-        }
-        if (this.body.angularVelocity < 0.005 && this.body.angularVelocity > -0.005) {
-            this.body.angularVelocity = 0
-        }
-
 
 
     }

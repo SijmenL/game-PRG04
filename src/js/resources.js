@@ -31,6 +31,8 @@ import garageMusic from "../sounds/garage.mp3";
 import beachMusic from "../sounds/beach.mp3";
 import endMusic from "../sounds/end.mp3";
 
+import hat from "../images/hat.png";
+
 const Resources = {
     Track: new ImageSource(track),
     Garage: new ImageSource(garage),
@@ -48,6 +50,9 @@ const Resources = {
     TurboUpgrade: new ImageSource(turboUpgrade),
     TireUpgrade: new ImageSource(tireUpgrade),
     HorsePowerUpgrade: new ImageSource(horsePowerUpgrade),
+
+    Hat: new ImageSource(hat),
+
 
     Add: new ImageSource(add),
     Subtract: new ImageSource(subtrackt),
@@ -81,6 +86,8 @@ const ResourceLoader = new Loader([
     Resources.EndScreen,
     Resources.GarageButton,
     Resources.MenuButton,
+
+    Resources.Hat,
 
     Resources.EngineUpgrade,
     Resources.TurboUpgrade,

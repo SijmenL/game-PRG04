@@ -1,9 +1,11 @@
 import {Actor, Input, Vector, Transform, Debug, Color, Shape, Collider, CollisionType, Physics} from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
+import {Hat} from "./hat.js";
 
 
 export class Car extends Actor {
 
+    hat
     engine;
     carRotation = 0;
     carSpeed = 0;
@@ -23,6 +25,11 @@ export class Car extends Actor {
 
     constructor() {
         super();
+
+        this.hat = new Hat();
+        this.addChild(this.hat)
+
+
         this.graphics.use(Resources.Car.toSprite());
 
         this.pos = new Vector(400, 300);

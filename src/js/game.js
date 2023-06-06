@@ -52,10 +52,10 @@ export class Game extends Engine {
     startGame(engine) {
         this.game = engine;
         this.coins = 0;
-        this.engineUpgrade = 0;
-        this.turboUpgrade = 0;
-        this.tireUpgrade = 0;
-        this.horsePowerUpgrade = 0;
+        this.engineUpgrade = 20;
+        this.turboUpgrade = 20;
+        this.tireUpgrade = 20;
+        this.horsePowerUpgrade = 20;
 
 
         this.goToScene('menu');

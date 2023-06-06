@@ -1,8 +1,10 @@
 import {Actor, Input, Vector, Transform, Debug, Color, Shape, CollisionType, Physics} from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
 
+import {Object} from "./object.js";
 
-export class Pion extends Actor {
+
+export class Pion extends Object {
     constructor() {
         super()
 
@@ -16,43 +18,6 @@ export class Pion extends Actor {
         this.body.friction = 0.99;
         this.body.mass = 1000;
         this.body.useGravity = false
-
-
-    }
-
-    onPreUpdate(_engine, _delta) {
-
-        if (this.vel.x > 0) {
-            this.vel.x -= 5
-        }
-        if (this.vel.x < 0) {
-            this.vel.x += 5
-        }
-        if (this.vel.y > 0) {
-            this.vel.y -= 5
-        }
-        if (this.vel.y < 0) {
-            this.vel.y += 5
-        }
-
-        if (this.body.angularVelocity > 0) {
-            this.body.angularVelocity -= 0.005
-        }
-        if (this.body.angularVelocity < 0) {
-            this.body.angularVelocity += 0.005
-        }
-
-
-        if (this.vel.x < 5 && this.vel.x > -5) {
-            this.vel.x = 0
-        }
-        if (this.vel.y < 5 && this.vel.y > -5) {
-            this.vel.y = 0
-        }
-        if (this.body.angularVelocity < 0.005 && this.body.angularVelocity > -0.005) {
-            this.body.angularVelocity = 0
-        }
-
 
 
     }
