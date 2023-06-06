@@ -16,6 +16,7 @@ import {Resources, ResourceLoader} from "./resources.js";
 import {TrackBeach} from "./track_beach.js";
 import {Menu} from "./menu.js";
 import {Garage} from "./garage.js";
+import {EndScreen} from "./endScreen.js";
 
 
 export class Game extends Engine {
@@ -26,6 +27,9 @@ export class Game extends Engine {
     tireUpgrade;
     horsePowerUpgrade;
 
+    raceFinished = false;
+    raceMiddle = false;
+
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FillScreen});
         this.start(ResourceLoader).then(() => this.startGame());
@@ -33,6 +37,7 @@ export class Game extends Engine {
         this.add('trackBeach', new TrackBeach());
         this.add('garage', new Garage());
         this.add('menu', new Menu());
+        this.add('endScreen', new EndScreen());
 
 
         this.debug.motion = {
@@ -46,11 +51,11 @@ export class Game extends Engine {
 
     startGame(engine) {
         this.game = engine;
-        this.coins = 50;
-        this.engineUpgrade = 0;
-        this.turboUpgrade = 0;
-        this.tireUpgrade = 0;
-        this.horsePowerUpgrade = 0;
+        this.coins = 10000000;
+        this.engineUpgrade = 20;
+        this.turboUpgrade = 20;
+        this.tireUpgrade = 20;
+        this.horsePowerUpgrade = 20;
 
 
         this.goToScene('menu');

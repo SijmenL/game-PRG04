@@ -18,6 +18,7 @@ import horsePowerUpgrade from "../images/horse_power_upgrade.png";
 import add from "../images/add.png";
 import subtrackt from "../images/subtrackt.png";
 
+import finishLine from "../images/finsish line.png"
 
 import buttonPractise from "../images/button-practise.png";
 
@@ -43,6 +44,7 @@ const Resources = {
     Add: new ImageSource(add),
     Subtract: new ImageSource(subtrackt),
 
+    FinishLine: new ImageSource(finishLine),
 
     Race: new ImageSource(buttonRace),
     Practise: new ImageSource(buttonPractise),
@@ -66,6 +68,7 @@ const ResourceLoader = new Loader([
     Resources.StartRace,
     Resources.Garage,
     Resources.Coin,
+    Resources.FinishLine,
 
     Resources.EngineUpgrade,
     Resources.TurboUpgrade,

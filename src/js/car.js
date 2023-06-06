@@ -4,32 +4,53 @@ import {Resources, ResourceLoader} from "./resources.js";
 
 export class Car extends Actor {
 
+    engine;
     carRotation = 0;
     carSpeed = 0;
     carAcceleration = 0.1;
     maxSpeed = 300;
     maxAcceleration = 50;
-    accelerationTime = 10;
+    accelerationTime = 15;
+    horsePower = 9;
     cameraZoom = 2000;
+
     maxCameraZoom = 0.5;
     defaultCameraZoom = 1.2;
     isRotating;
     isDriving;
     maxRotation = 0.00002;
-    temporaryMaxSpeed = this.maxSpeed;
+    temporaryMaxSpeed;
 
     constructor() {
-        super()
+        super();
         this.graphics.use(Resources.Car.toSprite());
 
-        this.pos = new Vector(400, 300)
+        this.pos = new Vector(400, 300);
         this.scale = new Vector(0.2, 0.2);
         this.collider.set(Shape.Box(390, 180));
         this.body.collisionType = CollisionType.Active;
         this.body.friction = 0.99;
-        this.body.mass = 100000;
+        this.body.useGravity = false;
     }
 
+    onInitialize(engine) {
+        this.engine = engine;
+
+        this.maxSpeed = 300 + 7.5 * this.engine.engineUpgrade;
+        this.accelerationTime = 15 + 5 * this.engine.turboUpgrade;
+        this.maxAcceleration = 50 + 1 * this.engine.tireUpgrade;
+
+        if (this.engine.horsePowerUpgrade * 0.5 < 9) {
+            this.horsePower = 9 - 0.5 * this.engine.horsePowerUpgrade;
+        } else {
+            this.horsePower = 1;
+        }
+        this.body.mass = 10000 + 100 * this.engine.horsePowerUpgrade;
+
+
+        this.temporaryMaxSpeed = this.maxSpeed;
+
+    }
 
     onPreUpdate(engine, delta) {
 
@@ -39,7 +60,7 @@ export class Car extends Actor {
 
         if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.Up)) {
             if (this.carAcceleration > -this.maxAcceleration) {
-                this.carAcceleration -= this.accelerationTime / 2
+                this.carAcceleration -= this.accelerationTime / 2;
             }
 
             if (this.carSpeed > -this.temporaryMaxSpeed && this.carSpeed <= 0) {
@@ -51,10 +72,10 @@ export class Car extends Actor {
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.Down)) {
             if (this.carAcceleration < this.maxAcceleration) {
-                this.carAcceleration += this.accelerationTime / 2
+                this.carAcceleration += this.accelerationTime / 2;
             }
 
-            if (this.carSpeed < (this.temporaryMaxSpeed / 2) && this.carSpeed >= 0) {
+            if (this.carSpeed < (this.temporaryMaxSpeed / 1.5) && this.carSpeed >= 0) {
                 this.carSpeed += 0.1 * this.carAcceleration;
             }
             if (this.carSpeed < 0) {
@@ -64,23 +85,23 @@ export class Car extends Actor {
         if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.Left)) {
             if (this.carRotation > -0.03) {
                 if (this.carSpeed < 0) {
-                    this.carRotation += (this.maxRotation * (this.carSpeed * 2))
+                    this.carRotation += (this.maxRotation * (this.carSpeed * 2));
                 } else {
-                    this.carRotation += (-this.maxRotation * (this.carSpeed * 2))
+                    this.carRotation += (-this.maxRotation * (this.carSpeed * 2));
                 }
             }
-            this.isRotating = true
+            this.isRotating = true;
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.Right)) {
             if (this.carRotation < 0.03) {
                 if (this.carSpeed < 0) {
-                    this.carRotation -= (this.maxRotation * (this.carSpeed * 2))
+                    this.carRotation -= (this.maxRotation * (this.carSpeed * 2));
                 } else {
-                    this.carRotation -= (-this.maxRotation * (this.carSpeed * 2))
+                    this.carRotation -= (-this.maxRotation * (this.carSpeed * 2));
 
                 }
             }
-            this.isRotating = true
+            this.isRotating = true;
         }
 
         if (this.carSpeed > 0 || this.carSpeed < 0) {
@@ -88,15 +109,14 @@ export class Car extends Actor {
         }
 
 
-        // if (this.isRotating === false) {
         if (this.carRotation > -0.0005 && this.carRotation < 0.0005) {
-            this.carRotation = 0
+            this.carRotation = 0;
         }
         if (this.carRotation > 0) {
-            this.carRotation -= 0.0025
+            this.carRotation -= 0.00125;
         }
         if (this.carRotation < 0) {
-            this.carRotation += 0.0025
+            this.carRotation += 0.00125;
         }
         // }
         if (this.isDriving === false) {
@@ -105,7 +125,7 @@ export class Car extends Actor {
 
         // calculate momentum & braking
         if (this.carSpeed > 5) {
-            this.carSpeed -= 5
+            this.carSpeed -= 5;
         } else {
             if (this.carSpeed <= 5 && this.carSpeed >= 0) {
                 this.carSpeed = 0;
@@ -113,7 +133,7 @@ export class Car extends Actor {
         }
 
         if (this.carSpeed < -5) {
-            this.carSpeed += 5
+            this.carSpeed += 5;
         } else {
             if (this.carSpeed >= -5 && this.carSpeed <= 0) {
                 this.carSpeed = 0;
@@ -125,31 +145,58 @@ export class Car extends Actor {
             Math.cos(this.rotation) * this.carSpeed,
             Math.sin(this.rotation) * this.carSpeed
         );
-        this.body.rotation = this.rotation + this.carRotation
+        this.body.rotation = this.rotation + this.carRotation;
 
         this.vel = direction;
 
 
         if (this.body.angularVelocity > 0) {
-            this.body.angularVelocity -= 0.1
+            this.body.angularVelocity -= 0.1;
         }
         if (this.body.angularVelocity < 0) {
-            this.body.angularVelocity += 0.1
+            this.body.angularVelocity += 0.1;
         }
         if (this.body.angularVelocity < 0.1 && this.body.angularVelocity > -0.1) {
-            this.body.angularVelocity = 0
+            this.body.angularVelocity = 0;
         }
 
-        this.on('collisionstart', () => {
-            this.carSpeed = 0
-            this.maxRotation = 0.00005
-            this.temporaryMaxSpeed = this.maxSpeed / 9;
-        })
+        this.on('collisionstart', (event) => this.hitSomething(event));
 
         this.on('collisionend', () => {
             this.temporaryMaxSpeed = this.maxSpeed;
-            this.maxRotation = 0.00002
-        })
+            this.maxRotation = 0.00002;
+        });
+
+
+    }
+
+    hitSomething(event) {
+        if (event.other._name === 'wall') {
+            this.carSpeed = 0;
+            this.maxRotation = 0.00005;
+            this.temporaryMaxSpeed = this.maxSpeed / 9;
+        }
+
+        if (event.other._name === 'tire') {
+            this.carSpeed = this.carSpeed / this.horsePower;
+            this.maxRotation = 0.000005;
+            this.temporaryMaxSpeed = this.maxSpeed / this.horsePower;
+        }
+        if (event.other._name === 'cone') {
+            this.carSpeed = this.carSpeed / this.horsePower;
+            this.maxRotation = 0.00005;
+            this.temporaryMaxSpeed = this.maxSpeed / this.horsePower;
+        }
+        if (event.other._name === 'midpoint') {
+            this.engine.raceMiddle = true
+        }
+
+        if (event.other._name === 'finish') {
+            if (this.engine.raceMiddle === true) {
+                console.log('finished');
+                this.engine.raceFinished = true
+            }
+        }
 
     }
 

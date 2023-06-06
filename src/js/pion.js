@@ -5,6 +5,9 @@ import {Resources, ResourceLoader} from "./resources.js";
 export class Pion extends Actor {
     constructor() {
         super()
+
+        this._setName('cone')
+
         this.scale = new Vector(0.2, 0.2);
         this.graphics.use(Resources.Pion.toSprite());
         this.pos = new Vector(Math.random() * (100 - -100) + -100, Math.random() * (100 - -100) + -100)

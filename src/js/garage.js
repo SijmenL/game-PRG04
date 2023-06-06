@@ -134,7 +134,7 @@ export class Garage extends Scene {
                 color: Color.Black,
                 textAlign: TextAlign.Center,
                 shadow: {
-                    blur: 2,
+                    blur: 10,
                     offset: new Vector(2, 2),
                     color: '#323232',
                 }

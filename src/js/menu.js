@@ -120,6 +120,6 @@ export class Menu extends Scene {
     }
 
     onDeactivate() {
-        this.music.stop()
+        this.music.stop();
     }
 }

@@ -5,6 +5,10 @@ import {Resources, ResourceLoader} from "./resources.js";
 export class Tire extends Actor {
     constructor() {
         super()
+
+        this._setName('tire')
+
+
         this.scale = new Vector(0.2, 0.2);
         this.graphics.use(Resources.Tire.toSprite());
         this.pos = new Vector(Math.random() * (-100 - -200) + -200, Math.random() * (-100 - -200) + -200)
