@@ -1,15 +1,6 @@
-# Excalibur Startproject 2023
+# Welcome to Curve Carnage!
+Curve Carnage is an exhilarating top-down view game that puts you in the driver's seat of a customizable vehicle. Your goal? To navigate through vibrant racetracks, earning upgrades, and ultimately amassing a fortune.
 
-![fishes](./src/images/preview.png)
-
-- Klik op USE THIS TEMPLATE. Kies als owner jouw eigen github account. 
-- Geef het project een coole naam en check dat dit startproject nu in je eigen github staat.
-- CLONE de repository van jouw eigen github naar je lokale computer via de git url. Die vind je onder "code".
-- Open VS Code. Klik het "Source Control" icoontje. Kies voor "clone repository" en plak de git url.
-- VS Code haalt nu het startproject op en opent het automatisch.
-- Kies een map die je ook via localhost kan openen, bijvoorbeeld `xampp/htdocs/mijnproject`.
-- Typ `npm install` en `npm run dev` in de terminal in VS Code.
-
-[🔥 Bekijk het instructie filmpje!](https://youtu.be/UIVpe4L5_P4)
-
-[Lees verder over het publiceren op github pages](https://github.com/HR-CMGT/PRG04-2022-2023/blob/main/setup.md)
+All of the art and programming where done by me for *PRG04 2023*. Music is royalty free.
+# Updates
+In the future I may add some updates and tweaks, so keep an eye out.
