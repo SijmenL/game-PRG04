@@ -26,8 +26,9 @@ export class Car extends Actor {
     constructor() {
         super();
 
-        this.hat = new Hat();
-        this.addChild(this.hat)
+        // Optionele cosmetica
+        // this.hat = new Hat();
+        // this.addChild(this.hat)
 
 
         this.graphics.use(Resources.Car.toSprite());
